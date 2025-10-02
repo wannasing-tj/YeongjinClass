@@ -145,8 +145,8 @@ $(function () {
 });
 
 
-
-function success(pos) {
+// async 붙히면 비동기함수로 바뀜! 이랍니다
+async function success(pos) {
   var crd = pos.coords;
 
   console.log("Your current position is:");
@@ -158,29 +158,43 @@ function success(pos) {
   let longitude = crd.longitude;
   let apiKey = "8db55fc21a695d9d1bc4a050faaa8af9";
 
-  fetch(
+  // 저장할 변수 선언하고 fetch앞에 await붙히면 promise가 벗겨지면서 then의 역할을 함.
+  const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=kr`
-  )
-    .then((response) => {
-      //console.log(response);
-      if(response.ok){
-        return response.json();
-      }else{
-        console.log("호출실패");
-      }
-    })
-    .then((data) => {
-      console.log(data);
-      const weather = data.weather[0].description;
-      const icon = data.weather[0].icon;
-      const imageURL = `https://openweathermap.org/img/wn/${icon}@2x.png`
-      console.log(weather);
-      // Math.round() : 소수점 버리기
-      const temp = Math.round(data.main.temp);
-      console.log(temp);
-      $(".weather").text(`${weather} ${temp}℃`);
-      $(".weather-icon").attr("src", imageURL);
-    });
+  );
+  const data = await response.json();
+  // 아래는 그대로 쓰면댐
+  const weather = data.weather[0].description;
+  const icon = data.weather[0].icon;
+  const imageURL = `https://openweathermap.org/img/wn/${icon}@2x.png`
+  console.log(weather);
+  // Math.round() : 소수점 버리기
+  const temp = Math.round(data.main.temp);
+  console.log(temp);
+  $(".weather").text(`${weather} ${temp}℃`);
+  $(".weather-icon").attr("src", imageURL);
+
+
+    // .then((response) => {
+    //   //console.log(response);
+    //   if(response.ok){
+    //     return response.json();
+    //   }else{
+    //     console.log("호출실패");
+    //   }
+    // })
+    // .then((data) => {
+    //   console.log(data);
+    //   const weather = data.weather[0].description;
+    //   const icon = data.weather[0].icon;
+    //   const imageURL = `https://openweathermap.org/img/wn/${icon}@2x.png`
+    //   console.log(weather);
+    //   // Math.round() : 소수점 버리기
+    //   const temp = Math.round(data.main.temp);
+    //   console.log(temp);
+    //   $(".weather").text(`${weather} ${temp}℃`);
+    //   $(".weather-icon").attr("src", imageURL);
+    // });
 }
 
 function error(err) {
