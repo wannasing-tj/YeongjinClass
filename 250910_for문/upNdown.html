@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업엔다운 게임</title>
+</head>
+<body>
+    <h1>업엔다운 게임</h1>
+    <script>
+        let end = 20;
+        let target = Math.floor(Math.random() * 10) + 1;
+        
+        while(end > 0){
+            let select = prompt(`1~10까지 숫자를 입력해 정답을 맞춰보세용. \n기회 ${end}번 남음.`);
+            
+            if(select > 10 || select < 1 || select == null){
+                alert("공백없이 1~10까지의 숫자를 입력해주세요.");
+                continue;
+            }else if(isNaN(select)){
+                alert("숫자만 입력해주세요.");
+                continue;
+            }else if(select > target){
+                alert("다운");
+                end--;
+            }else if(select < target){
+                alert("업");
+                end--;
+            }else if(select == target){
+                alert("정답!");
+                break;
+                end--;
+            }
+        }
+
+        if(end==0){
+            document.write("기회를 모두 소진하여 실패하셨습니다. <br>정답번호: "+target);
+        }else{
+            document.write("정답을 맞추셨습니다. 축하드립니다! <br>정답번호: "+target+"<br>시도횟수: "+(20-end)+"회");
+        }
+        
+    </script>
+</body>
+</html>

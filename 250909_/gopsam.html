@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>구구단 간단 출력</title>
+<style>
+  :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#f6f7fb; }
+  .card { width:min(420px, 92vw); background:#fff; padding:20px; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,.05); }
+  .row { display:flex; gap:8px; }
+  input[type="number"] { flex:1; padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
+  button { padding:10px 14px; border:none; border-radius:8px; font-size:16px; cursor:pointer; background:#2563eb; color:#fff; }
+  #out { margin-top:12px; font:16px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space:pre; background:#fafafa; border:1px solid #eee; border-radius:8px; padding:12px; min-height:160px; }
+  .hint { color:#6b7280; font-size:12px; margin-top:6px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1 style="margin:0 0 12px; font-size:20px;">구구단</h1>
+    <div class="row">
+      <label for="dan" class="sr-only">단수</label>
+      <input id="dan" type="number" min="2" max="9" placeholder="단수 (2~9)" />
+      <button id="go">보기</button>
+    </div>
+    <div class="hint">Enter 키로도 실행됩니다.</div>
+    <pre id="out" aria-live="polite"></pre>
+  </div>
+
+<script>
+  const input = document.getElementById('dan');
+  const btn   = document.getElementById('go');
+  const out   = document.getElementById('out');
+
+  function render() {
+    const n = Number(input.value);
+    if (!Number.isInteger(n) || n < 2 || n > 9) {
+      out.textContent = '2에서 9 사이의 정수를 입력하세요.';
+      return;
+    }
+    let lines = '';
+    for (let i = 1; i <= 9; i++) {
+      lines += `${n} × ${i} = ${n * i}\n`;
+    }
+    out.textContent = lines.trim();
+  }
+
+  btn.addEventListener('click', render);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') render(); });
+  input.focus();
+</script>
+</body>
+</html>

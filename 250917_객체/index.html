@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니 시스템 만들기</title>
+</head>
+<body>
+    <h1>장바구니</h1>
+    <script>
+        const cart = [
+            {name: "오렌지주스", price: 1800},
+            {name: "콜라", price: 1800},
+            {name: "두유", price: 1800},
+            {name: "바나나우유", price: 1800},
+            {name: "초코에몽", price: 1800},
+        ];
+
+        n = prompt("상품 이름 정하슈");
+        p = prompt("상품 가격 정하슈");
+
+        cart.push({name: n, price: p});
+
+        for(let i = 0; i<cart.length; i++){
+            document.write(cart[i].name);
+            document.write(cart[i].price + "<br>");
+        }
+    </script>
+</body>
+</html>

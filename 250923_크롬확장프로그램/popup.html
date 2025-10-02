@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <h3>타이머</h3>
+        <!-- 시간설정 -->
+        <div class="timer-input">
+            <label for="minute">분</label>
+            <input type="number" name="minute" id="minute" min="0" max="60">
+            <label for="second">초</label>
+            <input type="number" name="second" id="second" min="0" max="60">
+        </div>
+        <!-- 동작버튼 -->
+        <div class="actions">
+            <button id="start">시작</button>
+            <button id="reset">리셋</button>
+        </div>
+        <!-- 타이머UI -->
+        <p id="timer">00:00</p>
+    </main>
+    <script src="js/popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 추천 프로그램</title>
+</head>
+<body>
+    
+    <script>
+        // 영화추천 프로그램
+        // 나이, 장르 입력받기
+        // 연령등급 = 7 12 15 19
+        // 장르 = 액션 코미디 로맨스 공포
+        //------------------------------
+        // 나이대에 맞는 연령등급의 영화와 한단계 낮은 연령등급 영화를 동시에 추천
+        // 해당 영화에 맞는 장르와 이미지 출력하기
+
+        // 영화 목록표
+        let movies = {
+            19: [
+                { title: "타짜", grade: "19세이용가", genre: "액션", img: "img/타짜.webp" },
+                { title: "살인자ㅇ난감", grade: "19세이용가", genre: "공포", img: "img/살인자ㅇ난감.webp" },
+                { title: "신세계", grade: "19세이용가", genre: "범죄", img: "img/신세계.webp" }
+            ],
+            15: [
+                { title: "파묘", grade: "15세이용가", genre: "공포", img: "img/파묘.jpg" },
+                { title: "범죄도시", grade: "15세이용가", genre: "범죄", img: "img/범죄도시.webp" },
+                { title: "시동", grade: "15세이용가", genre: "코미디", img: "img/시동.webp" }
+            ],
+            12: [
+                { title: "주토피아", grade: "12세이용가", genre: "코미디", img: "img/주토피아.webp" },
+                { title: "인사이드아웃", grade: "12세이용가", genre: "코미디", img: "img/인사이드아웃.webp" }
+            ],
+            7: [
+                { title: "찰리와초콜릿공장", grade: "7세이용가", genre: "판타지", img: "img/찰리와초콜릿공장.webp" },
+                { title: "벼랑위의포뇨", grade: "7세이용가", genre: "애니메이션", img: "img/벼랑위의포뇨.jpg" }
+            ],
+            0: [
+                { title: "겨울왕국", grade: "전체이용가", genre: "판타지", img: "img/겨울왕국.webp"},
+                { title: "토이스토리", grade: "전체이용가", genre: "코미디", img: "img/토이스토리.webp" },
+                { title: "미녀와야수", grade: "전체이용가", genre: "로맨스", img: "img/미녀와야수.jpg" }
+            ]
+        };
+
+        let ageCut = 0;
+        let genreCheck = 0;
+        let ageCheck = 0;
+
+
+        let age = prompt("연배가 어떻게 되십니까?");
+        // 숫자이외에는 예외처리
+        if(isNaN(age) || age.trim() === "" || age == 0){
+            alert("숫자가 아닌 값이나 0및 공백은 입력할 수 없습니다.");
+            ageCheck++;
+            
+        }
+        let genre = prompt("장르 뭐가좋으십니까?","액션, 공포, 범죄, 코미디, 판타지, 애니메이션, 로멘스 중 택1");
+        // 장르를 정상적으로 입력했는지 + 존재하지 않는 장르 입력했는지 체크
+        for (let grade in movies) {
+            for (let m of movies[grade]) {
+                if (m.genre === genre) {
+                    genreCheck++;
+                }
+            }
+        }
+
+        alert(genreCheck+", "+ageCheck)
+
+        // 둘 다 맞으면 실행 이상하면 alert
+        if(genreCheck > 0 && ageCheck > 0){
+
+            if(age >= 19){
+                ageCut = 19;
+            }else if(age >= 15 && age < 19){
+                ageCut = 15;
+            }else if(age >= 12 && age < 15){
+                ageCut = 12;
+            }else{
+                ageCut = 7;
+            }
+    
+            document.write("<h1>[ 추천 영화 리스트 ]</h1>");
+            
+            switch(ageCut){
+                case 19:
+                    document.write("<h2>■ 19세 이용가 ■</h2>");
+                    movies[19].forEach(m => {
+                        if(m.genre == genre){
+                            document.write(
+                                `<b>영화제목:</b> ${m.title}<br><b>상영등급:</b> ${m.grade}<br><b>장르:</b> ${m.genre}<br><img src="${m.img}" width="200"><br>------------------------------<br>`
+                            );
+                        }
+                    });
+                case 15:
+                    document.write("<h2>■ 15세 이용가 ■</h2>");
+                    movies[15].forEach(m => {
+                        if(m.genre == genre){
+                            document.write(
+                                `<b>영화제목:</b> ${m.title}<br><b>상영등급:</b> ${m.grade}<br><b>장르:</b> ${m.genre}<br><img src="${m.img}" width="200"><br>------------------------------<br>`
+                            );
+                        }
+                    });
+                case 12:
+                    document.write("<h2>■ 12세 이용가 ■</h2>");
+                    movies[12].forEach(m => {
+                        if(m.genre == genre){
+                            document.write(
+                                `<b>영화제목:</b> ${m.title}<br><b>상영등급:</b> ${m.grade}<br><b>장르:</b> ${m.genre}<br><img src="${m.img}" width="200"><br>------------------------------<br>`
+                            );
+                        }
+                    });
+                case 7:
+                    document.write("<h2>■ 7세 이용가 ■</h2>");
+                    movies[7].forEach(m => {
+                        if(m.genre == genre){
+                            document.write(
+                                `<b>영화제목:</b> ${m.title}<br><b>상영등급:</b> ${m.grade}<br><b>장르:</b> ${m.genre}<br><img src="${m.img}" width="200"><br>------------------------------<br>`
+                            );
+                        }
+                    });
+                default:
+                    document.write("<h2>■ 전체 이용가 ■</h2>");
+                    movies[0].forEach(m => {
+                        if(m.genre == genre){
+                            document.write(
+                                `<b>영화제목:</b> ${m.title}<br><b>상영등급:</b> ${m.grade}<br><b>장르:</b> ${m.genre}<br><img src="${m.img}" width="200"><br>------------------------------<br>`
+                            );
+                        }
+                    });
+            }
+
+        }
+        else{
+            alert("해당 장르의 영화가 존재하지 않습니다.");
+        }
+    </script>
+</body>
+</html>

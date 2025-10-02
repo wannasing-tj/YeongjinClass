@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>초초간단 BMI 계산기</title>
+</head>
+<body>
+  <h1>초초초초간단 BMI 계산기</h1>
+
+  <script>
+    // 입력란
+    const height = prompt("키(cm)를 입력하세요.", "170");
+    const weight = prompt("체중(kg)을 입력하세요.", "65");
+
+    // 취소처리
+    if (height === null || weight === null) {
+      alert("입력이 취소되었습니다.");
+    } 
+    else {
+      // 소수점변환
+      const h = parseFloat(height); 
+      const w = parseFloat(weight); 
+
+      // 예외처리(유효하지 않음)
+      if (isNaN(h) || isNaN(w) || h <= 0 || w <= 0) {
+        alert("숫자를 제대로 입력해 주세요.");
+      } 
+      else {
+        // ㄱㅊ으면 계산때리기
+        const m = h / 100;                    
+        const bmi = w / (m * m);              // bmi 공식
+        const bmiUp = Math.round(bmi * 10) / 10;    // 소수점 1자리 반올림
+        const goodWeight = 22 * (m * m);           // 적정체중 공식
+        const goodWeightUp = Math.round(goodWeight * 10) / 10; //반올림
+        const calGoodWeight = w - goodWeight;   //몸무게 - 적정무게해서 과체중 저체중 나누기
+        const calGoodWeightUp = Math.round(calGoodWeight * 10) / 10; //반올림
+
+        // document에 모든 결과 싹다 출력
+        document.write("<h2>결과</h2>");
+        document.write("키: <b>" + h + " cm</b><br>");
+        document.write("체중: <b>" + w + " kg</b><br>");
+        document.write("BMI: <b>" + bmiUp + "</b><br>");
+        
+        if(calGoodWeightUp >= 20){
+            // 요약
+            alert("BMI: " + bmiUp + " / 돼지입니다.");
+            document.write("적정체중(평균 BMI 22 기준): <b>" + goodWeightUp + " kg</b><br>" + "적정 체중에서 <b>" + calGoodWeightUp + "kg</b> 만큼 초과하여 돼지입니다.<br>");
+        }
+        else if(20 > calGoodWeightUp && calGoodWeightUp>= 10){
+            // 요약
+            alert("BMI: " + bmiUp + " / 과체중입니다.");
+            document.write("적정체중(평균 BMI 22 기준): <b>" + goodWeightUp + " kg</b><br>" + "적정 체중에서 <b>" + calGoodWeightUp + "kg</b> 만큼 초과하여 과체중입니다.<br>");
+        }
+        else if(10 > calGoodWeightUp && calGoodWeightUp > -10 ){
+            // 요약
+            alert("BMI: " + bmiUp + " / 정상체중입니다.");
+            document.write("적정체중(평균 BMI 22 기준): <b>" + goodWeightUp + " kg</b><br>" + "적정 체중에서 <b>10kg</b> 범위를 유지하고 있어 정상체중입니다.<br>");
+        }
+        else if(-10 >= calGoodWeightUp && calGoodWeightUp > -20 ){
+            // 요약
+            alert("BMI: " + bmiUp + " / 저체중입니다.");
+            document.write("적정체중(평균 BMI 22 기준): <b>" + goodWeightUp + " kg</b><br>" + "적정 체중에서 <b>" + calGoodWeightUp + "kg</b> 만큼 미달하여 저체중입니다.<br>");
+        }
+        else {
+            // 요약
+            alert("BMI: " + bmiUp + " / 뼉따구입니다.");
+            document.write("적정체중(평균 BMI 22 기준): <b>" + goodWeightUp + " kg</b><br>" + "적정 체중에서 <b>" + calGoodWeightUp + "kg</b> 만큼 미달하여 뼉따구입니다.<br>");
+        }
+
+        //다시계산 버튼
+        document.write('<br><button onclick="location.reload()">다시 계산</button>');
+
+        console.log(calGoodWeightUp);
+      }
+      
+    }
+  </script>
+</body>
+</html>
